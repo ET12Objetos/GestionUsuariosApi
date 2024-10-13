@@ -2,6 +2,6 @@ namespace Aplicacion.Dominio;
 
 public class Auditoria
 {
-    public required string CreacionUsuario { get; set; }
-    public required DateTime CreacionFecha { get; set; }
+    public string CreacionUsuario { get; set; } = string.Empty;
+    public DateTime CreacionFecha { get; set; } = DateTime.Now;
 }
