@@ -1,6 +1,7 @@
+using Api.Funcionalidades;
 using Api.Funcionalidades.Roles;
+using Api.Funcionalidades.Usuarios;
 using Api.Persistencia;
-using Aplicacion.Dominio;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -19,9 +20,9 @@ options.UseMySql(connectionString, new MySqlServerVersion("8.0.39"));
 
 var context = new GestionUsuariosDbContext(options.Options);
 
-builder.Services.AddScoped<IRolService, RolService>();
-
 context.Database.EnsureCreated();
+
+builder.Services.AddServiceManager();
 
 var app = builder.Build();
 
@@ -39,5 +40,9 @@ app.UseHttpsRedirection();
 app.MapGroup("/api")
    .MapRolEndpoints()
    .WithTags("Rol");
+
+app.MapGroup("/api")
+   .MapUsuarioEndpoints()
+   .WithTags("Usuario");
 
 app.Run();
