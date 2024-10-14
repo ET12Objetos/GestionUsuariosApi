@@ -1,6 +1,8 @@
+using Api.Funcionalidades.Roles;
 using Api.Persistencia;
 using Aplicacion.Dominio;
 using Aplicacion.Validaciones;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Funcionalidades.Usuarios;
 
@@ -10,6 +12,8 @@ public interface IUsuarioService
     void CreateUsuario(UsuarioCommandDto usuarioDto);
     void UpdateUsuario(Guid idUsuario, UsuarioCommandDto usuarioDto);
     void DeleteUsuario(Guid idUsuario);
+    void AddRolToUsuario(Guid idRol, Guid idUsuario);
+    void RemoveRolFromUsuario(Guid idRol, Guid idUsuario);
 }
 
 public class UsuarioService : IUsuarioService
@@ -19,6 +23,19 @@ public class UsuarioService : IUsuarioService
     public UsuarioService(GestionUsuariosDbContext context)
     {
         this.context = context;
+    }
+
+    public void AddRolToUsuario(Guid idRol, Guid idUsuario)
+    {
+        var usuario = context.Usuarios.SingleOrDefault(usuario => usuario.Id == idUsuario);
+
+        var rol = context.Roles.SingleOrDefault(rol => rol.Id == idRol);
+
+        if (usuario is not null && rol is not null)
+        {
+            usuario.Roles.Add(rol);
+            context.SaveChanges();
+        }
     }
 
     public void CreateUsuario(UsuarioCommandDto usuarioDto)
@@ -60,7 +77,21 @@ public class UsuarioService : IUsuarioService
             Nombre = usuario.Nombre,
             Contraseña = usuario.Contraseña,
             Email = usuario.Email,
+            Roles = usuario.Roles.Select(rol => new RolQueryDto { Id = rol.Id, Nombre = rol.Nombre }).ToList()
         }).ToList();
+    }
+
+    public void RemoveRolFromUsuario(Guid idRol, Guid idUsuario)
+    {
+        var usuario = context.Usuarios.Include(x => x.Roles).SingleOrDefault(usuario => usuario.Id == idUsuario);
+
+        var rol = context.Roles.SingleOrDefault(rol => rol.Id == idRol);
+
+        if (usuario is not null && rol is not null)
+        {
+            usuario.Roles.Remove(rol);
+            context.SaveChanges();
+        }
     }
 
     public void UpdateUsuario(Guid idUsuario, UsuarioCommandDto usuarioDto)

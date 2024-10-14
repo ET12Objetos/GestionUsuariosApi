@@ -12,21 +12,33 @@ public static class UsuarioEndpoints
             return Results.Ok(usuarios);
         });
 
-        app.MapPost("/usuarios", ([FromServices] IUsuarioService usuarioService, UsuarioCommandDto usuarioDto) =>
+        app.MapPost("/usuario", ([FromServices] IUsuarioService usuarioService, UsuarioCommandDto usuarioDto) =>
         {
             usuarioService.CreateUsuario(usuarioDto);
             return Results.Ok();
         });
 
-        app.MapPut("/usuarios/{idUsuario}", ([FromServices] IUsuarioService usuarioService, Guid idUsuario, UsuarioCommandDto usuarioDto) =>
+        app.MapPut("/usuario/{idUsuario}", ([FromServices] IUsuarioService usuarioService, Guid idUsuario, UsuarioCommandDto usuarioDto) =>
         {
             usuarioService.UpdateUsuario(idUsuario, usuarioDto);
             return Results.Ok();
         });
 
-         app.MapDelete("/usuarios/{idUsuario}", ([FromServices] IUsuarioService usuarioService, Guid idUsuario) =>
+        app.MapDelete("/usuario/{idUsuario}", ([FromServices] IUsuarioService usuarioService, Guid idUsuario) =>
         {
             usuarioService.DeleteUsuario(idUsuario);
+            return Results.Ok();
+        });
+
+        app.MapPost("/usuario/{idUsuario}/rol/{idRol}", ([FromServices] IUsuarioService usuarioService, Guid idUsuario, Guid idRol) =>
+        {
+            usuarioService.AddRolToUsuario(idRol, idUsuario);
+            return Results.Ok();
+        });
+
+        app.MapDelete("/usuario/{idUsuario}/rol/{idRol}", ([FromServices] IUsuarioService usuarioService, Guid idUsuario, Guid idRol) =>
+        {
+            usuarioService.RemoveRolFromUsuario(idRol, idUsuario);
             return Results.Ok();
         });
 

@@ -32,6 +32,18 @@ public static class RolEndpoints
             return Results.Ok();
         });
 
+        app.MapPost("/rol/{idRol}/usuario/{idUsuario}", ([FromServices] IRolService rolService, Guid idRol, Guid idUsuario) =>
+        {
+            rolService.AddUsuarioToRol(idUsuario, idRol);
+            return Results.Ok();
+        });
+
+        app.MapDelete("/rol/{idRol}/usuario/{idUsuario}", ([FromServices] IRolService rolService, Guid idRol, Guid idUsuario) =>
+        {
+            rolService.RemoveUsuarioFromRol(idUsuario, idRol);
+            return Results.Ok();
+        });
+
         return app;
     }
 }
