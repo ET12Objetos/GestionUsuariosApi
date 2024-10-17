@@ -1,0 +1,18 @@
+services:
+
+  db:
+    image: mysql:8.0.39
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: pass123
+    ports:
+      - 3306:3306
+  webapi:
+    image: asd
+    environment:
+      -  ConnectionStrings__gestionusuarios_db=Server=db;Database=gestionusuarios;User=root;Password=pass123
+    ports:
+      - 5000:5000
+    depends_on:
+      - db
+  
