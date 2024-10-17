@@ -26,5 +26,9 @@ public class Usuario : Auditoria
     [StringLength(50)]
     public string Email { get; set; } = string.Empty;
 
+    [Required]
+    public bool Habilitado { get; set; } = true;
+
+    [ForeignKey("IdUsuario")]
     public List<Rol> Roles { get; set; } = new List<Rol>();
 }

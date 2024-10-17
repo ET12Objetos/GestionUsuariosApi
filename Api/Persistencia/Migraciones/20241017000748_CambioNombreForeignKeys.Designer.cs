@@ -4,6 +4,7 @@ using Api.Persistencia;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Persistencia.Migraciones
 {
     [DbContext(typeof(GestionUsuariosDbContext))]
-    partial class GestionUsuariosDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241017000748_CambioNombreForeignKeys")]
+    partial class CambioNombreForeignKeys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,9 +38,6 @@ namespace Api.Persistencia.Migraciones
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("Habilitado")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -46,32 +46,6 @@ namespace Api.Persistencia.Migraciones
                     b.HasKey("Id");
 
                     b.ToTable("Rol");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("b78542ef-ed34-47e9-80be-ec42505439b9"),
-                            CreacionFecha = new DateTime(2024, 10, 16, 21, 18, 24, 505, DateTimeKind.Local).AddTicks(6421),
-                            CreacionUsuario = "",
-                            Habilitado = true,
-                            Nombre = "Administrador"
-                        },
-                        new
-                        {
-                            Id = new Guid("e1209409-dfa1-48f4-b3ce-ef5eb580754f"),
-                            CreacionFecha = new DateTime(2024, 10, 16, 21, 18, 24, 505, DateTimeKind.Local).AddTicks(6423),
-                            CreacionUsuario = "",
-                            Habilitado = true,
-                            Nombre = "Vendedor"
-                        },
-                        new
-                        {
-                            Id = new Guid("2960ce73-3316-4c58-9931-2b202e14517e"),
-                            CreacionFecha = new DateTime(2024, 10, 16, 21, 18, 24, 505, DateTimeKind.Local).AddTicks(6435),
-                            CreacionUsuario = "",
-                            Habilitado = true,
-                            Nombre = "Legales"
-                        });
                 });
 
             modelBuilder.Entity("Aplicacion.Dominio.Usuario", b =>
@@ -97,9 +71,6 @@ namespace Api.Persistencia.Migraciones
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<bool>("Habilitado")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -113,30 +84,6 @@ namespace Api.Persistencia.Migraciones
                     b.HasKey("Id");
 
                     b.ToTable("Usuario");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("f5a42fca-12c4-4d1b-88d8-103cbd8010b4"),
-                            Contraseña = "pass123",
-                            CreacionFecha = new DateTime(2024, 10, 16, 21, 18, 24, 505, DateTimeKind.Local).AddTicks(6323),
-                            CreacionUsuario = "",
-                            Email = "",
-                            Habilitado = true,
-                            Nombre = "Juan123",
-                            NombreCompleto = "Juan Perez"
-                        },
-                        new
-                        {
-                            Id = new Guid("891d716d-f5bd-430d-8272-8fcd3ec48a69"),
-                            Contraseña = "pass123",
-                            CreacionFecha = new DateTime(2024, 10, 16, 21, 18, 24, 505, DateTimeKind.Local).AddTicks(6341),
-                            CreacionUsuario = "",
-                            Email = "",
-                            Habilitado = true,
-                            Nombre = "Pablo123",
-                            NombreCompleto = "Pablo Lopez"
-                        });
                 });
 
             modelBuilder.Entity("RolUsuario", b =>

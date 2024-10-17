@@ -13,5 +13,9 @@ public class Rol : Auditoria
     [StringLength(50)]
     public required string Nombre { get; set; }
 
+    [Required]
+    public bool Habilitado { get; set; } = true;
+
+    [ForeignKey("IdRol")]
     public List<Usuario> Usuarios { get; set; } = new List<Usuario>();
 }

@@ -20,7 +20,7 @@ options.UseMySql(connectionString, new MySqlServerVersion("8.0.39"));
 
 var context = new GestionUsuariosDbContext(options.Options);
 
-context.Database.EnsureCreated();
+context.Database.Migrate();
 
 builder.Services.AddServiceManager();
 
