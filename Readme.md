@@ -179,3 +179,12 @@ dotnet ef migrations add MigracionInicial --context GestionUsuariosDbContext --o
 ```sh
 dotnet ef migrations add UnNuevoCambio --context GestionUsuariosDbContext --output-dir Persistencia/Migraciones --project Api --startup-project Api
 ```
+
+Es importante modificar la siguiente linea de código en el archivo **Program.cs** para que sea consistente la aplicación de las migraciones:
+```csharp
+contexto.Database.EnsureCreated();
+```
+Por
+```csharp
+context.Database.Migrate();
+```
