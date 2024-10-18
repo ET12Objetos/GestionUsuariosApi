@@ -186,5 +186,5 @@ contexto.Database.EnsureCreated();
 ```
 Por
 ```csharp
-context.Database.Migrate();
+contexto.Database.Migrate();
 ```
