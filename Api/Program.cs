@@ -14,11 +14,11 @@ builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("gestionusuarios_db");
 
-builder.Services.AddDbContext<GestionUsuariosDbContext>(option => option.UseMySql(connectionString, new MySqlServerVersion("8.0.39")));
+builder.Services.AddDbContext<GestionUsuariosDbContext>(option => option.UseNpgsql(connectionString));
 
 var options = new DbContextOptionsBuilder<GestionUsuariosDbContext>();
 
-options.UseMySql(connectionString, new MySqlServerVersion("8.0.39"));
+options.UseNpgsql(connectionString);
 
 var context = new GestionUsuariosDbContext(options.Options);
 
@@ -31,7 +31,7 @@ var app = builder.Build();
 
 app.UseSwagger(options =>
 {
-    options.RouteTemplate = "openapi/{documentName}.json";
+   options.RouteTemplate = "openapi/{documentName}.json";
 });
 app.MapScalarApiReference();
 

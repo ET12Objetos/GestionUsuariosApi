@@ -1,18 +1,18 @@
 services:
-
   db:
-    image: mysql:8.0.39
+    image: postgres
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: pass123
+      - POSTGRES_PASSWORD=pass123
     ports:
-      - 3306:3306
+      - 6000:5432
+
   webapi:
-    image: asd
+    image: gestionusuarios
+    restart: always
     environment:
-      -  ConnectionStrings__gestionusuarios_db=Server=db;Database=gestionusuarios;User=root;Password=pass123
+      - ConnectionStrings__gestionusuarios_db=Server=db;Database=gestionusuarios;Username=postgres;Password=pass123
     ports:
       - 5000:5000
     depends_on:
       - db
-  

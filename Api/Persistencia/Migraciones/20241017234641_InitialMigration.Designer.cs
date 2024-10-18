@@ -3,17 +3,17 @@ using System;
 using Api.Persistencia;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace Api.Persistencia.Migraciones
 {
     [DbContext(typeof(GestionUsuariosDbContext))]
-    [Migration("20241017001824_DataSeeding")]
-    partial class DataSeeding
+    [Migration("20241017234641_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,30 +21,30 @@ namespace Api.Persistencia.Migraciones
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.10")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Aplicacion.Dominio.Rol", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreacionFecha")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("CreacionUsuario")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("text");
 
                     b.Property<bool>("Habilitado")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 
@@ -53,24 +53,24 @@ namespace Api.Persistencia.Migraciones
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b78542ef-ed34-47e9-80be-ec42505439b9"),
-                            CreacionFecha = new DateTime(2024, 10, 16, 21, 18, 24, 505, DateTimeKind.Local).AddTicks(6421),
+                            Id = new Guid("e0bd340d-bd4b-4c3b-a5b1-dc2ae8b73ebf"),
+                            CreacionFecha = new DateTime(2024, 10, 17, 23, 46, 41, 342, DateTimeKind.Utc).AddTicks(2168),
                             CreacionUsuario = "",
                             Habilitado = true,
                             Nombre = "Administrador"
                         },
                         new
                         {
-                            Id = new Guid("e1209409-dfa1-48f4-b3ce-ef5eb580754f"),
-                            CreacionFecha = new DateTime(2024, 10, 16, 21, 18, 24, 505, DateTimeKind.Local).AddTicks(6423),
+                            Id = new Guid("8c68b8a6-69f2-48a8-bcee-aea9daca0e7d"),
+                            CreacionFecha = new DateTime(2024, 10, 17, 23, 46, 41, 342, DateTimeKind.Utc).AddTicks(2178),
                             CreacionUsuario = "",
                             Habilitado = true,
                             Nombre = "Vendedor"
                         },
                         new
                         {
-                            Id = new Guid("2960ce73-3316-4c58-9931-2b202e14517e"),
-                            CreacionFecha = new DateTime(2024, 10, 16, 21, 18, 24, 505, DateTimeKind.Local).AddTicks(6435),
+                            Id = new Guid("546cb1f1-0ce9-4074-a410-502e000c4f8b"),
+                            CreacionFecha = new DateTime(2024, 10, 17, 23, 46, 41, 342, DateTimeKind.Utc).AddTicks(2188),
                             CreacionUsuario = "",
                             Habilitado = true,
                             Nombre = "Legales"
@@ -81,37 +81,37 @@ namespace Api.Persistencia.Migraciones
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Contraseña")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<DateTime>("CreacionFecha")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("CreacionUsuario")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<bool>("Habilitado")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("NombreCompleto")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 
@@ -120,9 +120,9 @@ namespace Api.Persistencia.Migraciones
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f5a42fca-12c4-4d1b-88d8-103cbd8010b4"),
+                            Id = new Guid("09a97ece-7e03-43b8-813f-39456bab8a00"),
                             Contraseña = "pass123",
-                            CreacionFecha = new DateTime(2024, 10, 16, 21, 18, 24, 505, DateTimeKind.Local).AddTicks(6323),
+                            CreacionFecha = new DateTime(2024, 10, 17, 23, 46, 41, 342, DateTimeKind.Utc).AddTicks(2109),
                             CreacionUsuario = "",
                             Email = "",
                             Habilitado = true,
@@ -131,9 +131,9 @@ namespace Api.Persistencia.Migraciones
                         },
                         new
                         {
-                            Id = new Guid("891d716d-f5bd-430d-8272-8fcd3ec48a69"),
+                            Id = new Guid("2a985321-0fa5-46d5-b63b-ede41b5de713"),
                             Contraseña = "pass123",
-                            CreacionFecha = new DateTime(2024, 10, 16, 21, 18, 24, 505, DateTimeKind.Local).AddTicks(6341),
+                            CreacionFecha = new DateTime(2024, 10, 17, 23, 46, 41, 342, DateTimeKind.Utc).AddTicks(2121),
                             CreacionUsuario = "",
                             Email = "",
                             Habilitado = true,
@@ -145,10 +145,10 @@ namespace Api.Persistencia.Migraciones
             modelBuilder.Entity("RolUsuario", b =>
                 {
                     b.Property<Guid>("IdRol")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("IdUsuario")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uuid");
 
                     b.HasKey("IdRol", "IdUsuario");
 
