@@ -255,9 +255,18 @@ services:
     depends_on: # da un orden de jerarquia al momento de crear los containers, en este caso se indica que primero se debe crear el container db
       - db
 ```
-
 Para ejecutar el archivo **docker-compose** se debe ejecutar el comando:
 
 ```sh
 docker compose up -d
 ```
+
+### Workflow
+
+1 - Loguearse desde la terminal a dockerhub (previamente crear un usuario en **https://hub.docker.com/**)
+2 - Crear una imagen de docker (previamente crear archivo **Dockerfile**)
+3 - Ejecutar la imagen (crear el container) para verificar si funciona correctamente 
+4 - Subir la imagen recientemente creada a Dockerhub
+5 - Bajar la imagen recientemente subida
+
+![diagram](https://github.com/ET12Objetos/GestionUsuariosApi/blob/docker-postgres/workflow.drawio.svg)
