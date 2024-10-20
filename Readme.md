@@ -269,4 +269,4 @@ docker compose up -d
 4. Subir la imagen recientemente creada a Dockerhub
 5. Bajar la imagen recientemente subida
 
-![diagram](https://github.com/ET12Objetos/GestionUsuariosApi/blob/docker-postgres/workflow.drawio.svg)
+![diagram](https://raw.githubusercontent.com/ET12Objetos/GestionUsuariosApi/refs/heads/docker-postgres/workflow.drawio.svg)
