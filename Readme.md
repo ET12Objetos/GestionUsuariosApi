@@ -179,3 +179,85 @@ dotnet ef migrations add MigracionInicial --context GestionUsuariosDbContext --o
 ```sh
 dotnet ef migrations add UnNuevoCambio --context GestionUsuariosDbContext --output-dir Persistencia/Migraciones --project Api --startup-project Api
 ```
+
+## Docker
+
+Para crear una imagen a partir del codigo fuente se debe crear un archivo con nombre **Dockerfile** y su contenido depende de la tecnología del código fuente. 
+
+En el caso de C# el archivo **Dockerfile** debe estar en el mismo directorio en donde se encuentre el archivo **.sln** o las carpetas de los proyectos de Api, Biblioteca, Tests, etc.
+
+Para ver el ejemplo del contenido del archivo **Dockerfile** revisar el que se encuentre en el repositorio, se encuentra explicado linea por linea. 
+
+### Generación Imagen de Docker
+
+Una vez que el archivo ya se encuentre terminado se debe generar la imagen de docker con el siguiente comando cuyo formato genérico es:
+
+```sh
+docker build -t NombreUsuarioDockerHub/NombreImagen:Version .
+**```
+Por ejemplo para si mi el usuario de dockerhub es **jonathanvgms**, y el nombre de la imagen es **gestionusuarios** y la versión es **1.0**
+
+```sh
+docker build -t jonathanvgms/gestionusuarios:1.0 .
+```
+
+### Ejecución de imagen docker (Container)
+
+Para ejecutar la imagen (crear el container) se debe ejecutar el siguiente comando:
+
+```sh
+docker run -p 5000:5000 -d jonathanvgms/gestionusuarios:1.0
+```
+
+El parametro **-p** indica el puerto de acceso externo al container y el puerto de interno expuesto en el container. Por ejemplo si **-p 1234:6789** significa que mediante el puerto **1234** se puede acceder al container y que el trafico de red que llegue al puerto **1234** se va a redireccionar al puerto **6789**
+
+### Dockerhub
+
+Para subir la imagen de docker a dockerhub es necesario, previamente loguearse con el usuario creado en la página **https://hub.docker.com/** con el siguiente comando:
+
+```sh
+docker login
+```
+
+Para **subir** una imagen al registry de Dockerhub desde nuestra PC se usa el comando:
+```sh
+docker push jonathanvmgs/gestionusuarios:1.0
+```
+
+Para **bajar** una imagen desde registry de Dockerhub a nuestra PC se usa el comando:
+```sh
+docker pull jonathanvmgs/gestionusuarios:1.0
+```
+
+### Docker Compose
+
+A veces es necesario ejecutar mas de una imagen en simulaneo y realizarlo mediante el CLI es muy complejo. Para simplicar ese proceso se suele usar los archivos **docker-compose**.
+
+El arhivo **docker-compose** usa el formato YAML por lo cual es importante respetar la identación de cada linea.
+
+```yml
+services:
+  db: # nombre de la imagen/container dentro del archivo
+    image: postgres:17.0 # nombre la imagen a usar
+    restart: always # indica que el container se ejecuta automaticamente al arrancar el sistema operativo
+    environment: # se especifican las variables de entorno
+      - POSTGRES_PASSWORD=pass123
+    ports: # se especifican los puertos externos e internos al container
+      - 5001:5432
+      
+  webapi:
+    image: jonathanvmgms/apipostgres6to7ma
+    restart: always
+    environment:
+      - ConnectionStrings__gestionusuarios_db=Server=db;Database=gestionusuarios;Username=postgres;Password=pass123
+    ports:
+      - 5000:5000
+    depends_on: # da un orden de jerarquia al momento de crear los containers, en este caso se indica que primero se debe crear el container db
+      - db
+```
+
+Para ejecutar el archivo **docker-compose** se debe ejecutar el comando:
+
+```sh
+docker compose up -d
+```
