@@ -194,7 +194,7 @@ Una vez que el archivo ya se encuentre terminado se debe generar la imagen de do
 
 ```sh
 docker build -t NombreUsuarioDockerHub/NombreImagen:Version .
-**```
+```
 Por ejemplo para si mi el usuario de dockerhub es **jonathanvgms**, y el nombre de la imagen es **gestionusuarios** y la versión es **1.0**
 
 ```sh
