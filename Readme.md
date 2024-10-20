@@ -267,6 +267,6 @@ docker compose up -d
 2. Crear una imagen de docker (previamente crear archivo **Dockerfile**)
 3. Ejecutar la imagen (crear el container) para verificar si funciona correctamente 
 4. Subir la imagen recientemente creada a Dockerhub
-5. Bajar la imagen recientemente subida
+5. Bajar la imagen recientemente subida (si son varias imagenes es recomendable usar un archivo **docker-compose.yml**)
 
 ![diagram](https://raw.githubusercontent.com/ET12Objetos/GestionUsuariosApi/refs/heads/docker-postgres/workflow.drawio.svg)
