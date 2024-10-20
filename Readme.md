@@ -263,10 +263,10 @@ docker compose up -d
 
 ### Workflow
 
-1 - Loguearse desde la terminal a dockerhub (previamente crear un usuario en **https://hub.docker.com/**)
-2 - Crear una imagen de docker (previamente crear archivo **Dockerfile**)
-3 - Ejecutar la imagen (crear el container) para verificar si funciona correctamente 
-4 - Subir la imagen recientemente creada a Dockerhub
-5 - Bajar la imagen recientemente subida
+1. Loguearse desde la terminal a dockerhub (previamente crear un usuario en **https://hub.docker.com/**)
+2. Crear una imagen de docker (previamente crear archivo **Dockerfile**)
+3. Ejecutar la imagen (crear el container) para verificar si funciona correctamente 
+4. Subir la imagen recientemente creada a Dockerhub
+5. Bajar la imagen recientemente subida
 
 ![diagram](https://github.com/ET12Objetos/GestionUsuariosApi/blob/docker-postgres/workflow.drawio.svg)
