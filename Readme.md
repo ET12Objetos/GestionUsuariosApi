@@ -255,7 +255,7 @@ services:
     depends_on: # da un orden de jerarquia al momento de crear los containers, en este caso se indica que primero se debe crear el container db
       - db
 ```
-Para ejecutar el archivo **docker-compose** se debe ejecutar el comando:
+Para ejecutar el archivo **docker-compose.yml** se debe ejecutar el comando:
 
 ```sh
 docker compose up -d
